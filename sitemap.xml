@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://lixw1994.github.io/blog/</loc>
+         <lastmod>2021-10-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://lixw1994.github.io/blog/%E7%9F%A5%E8%AF%86%E5%BA%93/kafka%E7%AE%80%E4%BB%8B/</loc>
+         <lastmod>2021-10-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://lixw1994.github.io/blog/%E7%9F%A5%E8%AF%86%E5%BA%93/%E8%AE%A2%E5%8D%95%E7%B3%BB%E7%BB%9F/</loc>
+         <lastmod>2021-10-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://lixw1994.github.io/blog/%E7%9F%A5%E8%AF%86%E5%BA%93/golang/gitlab%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E4%BE%9D%E8%B5%96/</loc>
+         <lastmod>2021-10-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://lixw1994.github.io/blog/%E7%9F%A5%E8%AF%86%E5%BA%93/golang/nats%E5%AE%A2%E6%88%B7%E7%AB%AF/</loc>
+         <lastmod>2021-10-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://lixw1994.github.io/blog/%E7%9F%A5%E8%AF%86%E5%BA%93/%E5%AE%9A%E6%9C%9F%E5%88%86%E4%BA%AB/20210618-js%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/</loc>
+         <lastmod>2021-10-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>

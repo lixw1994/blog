@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="随想记录" name="description"/>
+<meta content="lixianwei" name="author"/>
+<link href="https://lixw1994.github.io/blog/%E7%9F%A5%E8%AF%86%E5%BA%93/%E5%AE%9A%E6%9C%9F%E5%88%86%E4%BA%AB/20210618-js%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" rel="canonical"/>
+<link href="../../../assets/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.2.3, mkdocs-material-7.3.3" name="generator"/>
+<title>20210618分享-js异步编程 - Blog</title>
+<link href="../../../assets/stylesheets/main.5143246d.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.3f5d1f46.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
+<script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+<script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#js">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Blog" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Blog">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Blog
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              20210618分享-js异步编程
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="red" data-md-color-media="" data-md-color-primary="red" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<a aria-label="Share" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08z"></path></svg>
+</a>
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/lixw1994/blog" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    blog
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+      Home
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../../golang/gitlab%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E4%BE%9D%E8%B5%96/">
+        知识库
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Blog" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Blog">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+    Blog
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/lixw1994/blog" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    blog
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+        Home
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2">
+          知识库
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="知识库" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          知识库
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" id="__nav_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1">
+          golang
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="golang" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_1">
+<span class="md-nav__icon md-icon"></span>
+          golang
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../golang/gitlab%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E4%BE%9D%E8%B5%96/">
+        gitlab私有仓库依赖
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../golang/nats%E5%AE%A2%E6%88%B7%E7%AB%AF/">
+        nats客户端
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" id="__nav_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2">
+          定期分享
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="定期分享" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_2">
+<span class="md-nav__icon md-icon"></span>
+          定期分享
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          20210618分享-js异步编程
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        20210618分享-js异步编程
+      </a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#js">
+    主题: js异步编程
+  </a>
+<nav aria-label="主题: js异步编程" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-loop">
+    事件轮询（Event Loop）
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#callback">
+    异步与callback
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_1">
+    异步与并行
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#callback-hell">
+    回掉地狱(callback hell)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#promise">
+    Promise风暴
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#promise_1">
+    Promise不是银弹
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_2">
+    额外甜点
+  </a>
+<nav aria-label="额外甜点" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_3">
+    同步和异步 ｜ 并发和并行
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#generator">
+    generator
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_4">
+    引用
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../%E8%AE%A2%E5%8D%95%E7%B3%BB%E7%BB%9F/">
+        订单系统
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../kafka%E7%AE%80%E4%BB%8B/">
+        kafka简介
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#js">
+    主题: js异步编程
+  </a>
+<nav aria-label="主题: js异步编程" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-loop">
+    事件轮询（Event Loop）
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#callback">
+    异步与callback
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_1">
+    异步与并行
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#callback-hell">
+    回掉地狱(callback hell)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#promise">
+    Promise风暴
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#promise_1">
+    Promise不是银弹
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_2">
+    额外甜点
+  </a>
+<nav aria-label="额外甜点" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_3">
+    同步和异步 ｜ 并发和并行
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#generator">
+    generator
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_4">
+    引用
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1>20210618分享-js异步编程</h1>
+<h2 id="js">主题: js异步编程<a class="headerlink" href="#js" title="Permanent link">¶</a></h2>
+<h3 id="event-loop">事件轮询（Event Loop）<a class="headerlink" href="#event-loop" title="Permanent link">¶</a></h3>
+<ul>
+<li>一个令人震惊的事实：JavaScript本身从来没有任何内建的异步概念，JavaScript本身是单线程的。</li>
+<li>
+<p>JS引擎本身除了在某个在被要求的时刻执行你程序的一个单独的代码块外，没有做过任何其他的事情。</p>
+<ul>
+<li>JS引擎宿主环境：浏览器、Node、cocos-js等</li>
+<li>一段假想的事件轮询的代码
+<div class="highlight"><pre><span></span><code>// `eventLoop`是一个像队列一样的数组（先进先出）
+var eventLoop = [ ];
+var event;
+
+// “永远”执行
+while (true) {
+    // 执行一个"tick"
+    if (eventLoop.length &gt; 0) {
+        // 在队列中取得下一个事件
+        event = eventLoop.shift();
+
+        // 现在执行下一个事件
+        try {
+            event();
+        }
+        catch (err) {
+            reportError(err);
+        }
+    }
+}
+</code></pre></div></li>
+<li>我们的程序通常被打断成许多小的代码块儿，它们一个接一个地在事件轮询队列中执行。</li>
+<li>可以这么理解：异步是关于 现在 与 稍后 之间的间隙</li>
+</ul>
+</li>
+</ul>
+<h3 id="callback">异步与callback<a class="headerlink" href="#callback" title="Permanent link">¶</a></h3>
+<ul>
+<li>最常见的 代码块儿 单位是<code>function</code>，所以最简单的异步方式就是回调函数。</li>
+<li>
+<p>例如一个异步的Ajax请求
+<div class="highlight"><pre><span></span><code>// ajax(..) 是某个包中任意的Ajax函数
+ajax( "http://some.url.1", function callback(data){
+
+    console.log( data ); // 稍后，我得到了一些数据
+
+} );
+console.log('请求开始');  // 现在，请求开始
+</code></pre></div></p>
+</li>
+<li>
+<p>这个输出的顺序是什么
+<div class="highlight"><pre><span></span><code>function asyncAdd(a, b, cb) {
+    setTimeout(cb, 0, a+b);
+}
+
+asyncAdd(3, 3, function(c) {
+    console.log(c);
+});
+
+asyncAdd(1, 1, function(c) {
+    console.log(c);
+});
+</code></pre></div></p>
+</li>
+<li>
+<p>这个输出的顺序是什么
+<div class="highlight"><pre><span></span><code>function add(a, b, cb) {
+    cb(a + b);
+}
+
+function asyncAdd(a, b, cb) {
+    setTimeout(cb, 0, a+b);
+}
+
+
+
+asyncAdd(3, 3, function(c) {
+    console.log(c);
+});
+
+add(2, 2, function(c) {
+    console.log(c);
+});
+
+asyncAdd(1, 1, function(c) {
+    console.log(c);
+});
+// callback一定是异步吗
+</code></pre></div></p>
+</li>
+</ul>
+<h3 id="_1">异步与并行<a class="headerlink" href="#_1" title="Permanent link">¶</a></h3>
+<p>以下代码，如果可以并行执行，a可能的值是什么
+实际js运行时，a可能的值是什么
+<div class="highlight"><pre><span></span><code>// 随机延时
+function ajax(url, cb) {
+    setTimeout(cb, Math.random() * 100, url);
+}
+
+// 实际运行代码
+let a = 20;
+
+function foo() {
+    a = a + 1;
+}
+
+function bar() {
+    a = a * 2;
+}
+// 42 41
+// ajax(..) 是一个给定的库中的随意Ajax函数
+ajax( "http://some.url.1", foo );
+ajax( "http://some.url.2", bar );
+// 实际运行代码
+
+// 输出a
+setTimeout(() =&gt; {
+    console.log(a);
+}, 1000);
+</code></pre></div>
+- js并不具备并行的能力
+- 一旦某个代码块开始执行，必然"运行至完成"</p>
+<h3 id="callback-hell">回掉地狱(callback hell)<a class="headerlink" href="#callback-hell" title="Permanent link">¶</a></h3>
+<p>考虑下面的代码，分析执行顺序：
+<div class="highlight"><pre><span></span><code>listen( "click", function handler(evt){
+    setTimeout( function request(){
+        ajax( "http://some.url.1", function response(text){
+            if (text == "hello") {
+                handler();
+            }
+            else if (text == "world") {
+                request();
+            }
+        } );
+    }, 500) ;
+} );
+</code></pre></div>
+简化版
+<div class="highlight"><pre><span></span><code>doA( function(){
+    doB();
+
+try
+    doC( function(){
+        doD();
+    } )
+
+    doE();
+} );
+
+doF();
+</code></pre></div>
+doA()
+doF()
+doB()
+doC()
+doE()
+doD()</p>
+<ul>
+<li>注意：上述分析一定对吗？一切皆异步，这是一个承诺，还是一个事实？</li>
+<li>回掉的信任问题<ul>
+<li>回掉意味着转移控制权 - 不能try catch</li>
+<li>Release Zalgo？？(有时会同步完地成，而有时会异步地完成)</li>
+<li>调用回调过早（在它开始追踪之前）</li>
+<li>调用回调过晚 (或不调)</li>
+<li>调用回调太少或太多次（就像你遇到的问题！）</li>
+<li>没能向你的回调传递必要的环境/参数</li>
+<li>吞掉了可能发生的错误/异常</li>
+</ul>
+</li>
+<li>两种常见的尝试(没有解决本质问题)<ul>
+<li>`ajax( "<a href="http://some.url.1">http://some.url.1</a>", success, failure );``</li>
+<li>错误优先风格
+<div class="highlight"><pre><span></span><code>function response(err,data) {
+    // 有错？
+    if (err) {
+        console.error( err );
+    }
+    // 否则，认为成功
+    else {
+        console.log( data );
+    }
+}
+ajax( "http://some.url.1", response );
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h3 id="promise">Promise风暴<a class="headerlink" href="#promise" title="Permanent link">¶</a></h3>
+<ul>
+<li>Promise就是一个稍后的值<ul>
+<li>一个</li>
+<li>稍后</li>
+<li>值(成功 or 拒绝)</li>
+</ul>
+</li>
+<li>
+<p>一个 Promise 必然处于以下几种状态之一：
+待定（pending）: 初始状态，既没有被兑现，也没有被拒绝。
+已兑现（fulfilled）: 意味着操作成功完成。
+已拒绝（rejected）: 意味着操作失败。
+<img alt="bb754dbb921cebfeadb2f0367b23cbba.png" src=":/66d39343586245dca802b248dc970981"/></p>
+</li>
+<li>
+<p>Promise + Generator =&gt; async + await；是最终的解决方案吗？</p>
+</li>
+</ul>
+<h3 id="promise_1">Promise不是银弹<a class="headerlink" href="#promise_1" title="Permanent link">¶</a></h3>
+<ul>
+<li>本质上还是回调函数</li>
+<li>跟普通的js函数一样，不能打断和撤销<ul>
+<li>设计幂等的代码块儿处理类似的问题</li>
+</ul>
+</li>
+<li>未捕获的错误如何处理 (尾部接上catch)<ul>
+<li>catch内部也有错误呢</li>
+</ul>
+</li>
+<li>缺乏处理事件流的能力
+<div class="highlight"><pre><span></span><code>考虑这样一个场景：你想要在一个特定事件每次被触发时触发一系列步骤。一个单独的 Promise 或序列不能表示这个事件全部的发生状况。所以，你不得不为每一个事件的发生创建一个全新的 Promise 链（或序列），比如：
+
+listener.on( "foobar", function(data){
+
+    // 创建一个新的事件处理 Promise 链
+    new Promise( function(resolve,reject){
+        // ..
+    } )
+    .then( .. )
+    .then( .. );
+
+} );
+</code></pre></div></li>
+</ul>
+<h3 id="_2">额外甜点<a class="headerlink" href="#_2" title="Permanent link">¶</a></h3>
+<h4 id="_3">同步和异步 ｜ 并发和并行<a class="headerlink" href="#_3" title="Permanent link">¶</a></h4>
+<ul>
+<li>同步和异步是对任务执行过程的描述<ul>
+<li>异步并不意味着程序性能更高</li>
+</ul>
+</li>
+<li>并发是对多个任务的计划(planning)<ul>
+<li>并发并不意味着程序性能更高<ul>
+<li>Concurrency is powerful.</li>
+<li>Concurrency is not parallelism.</li>
+<li>Concurrency enables parallelism.</li>
+<li>Concurrency makes parallelism (and scaling and everything else) easy.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>并行是多个任务同时执行(doing)<ul>
+<li><a href="https://talks.golang.org/2012/waza.slide#8">Concurrency is not parallelism</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="generator">generator<a class="headerlink" href="#generator" title="Permanent link">¶</a></h4>
+<ul>
+<li><a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/async%20%26%20performance/ch4.md#%E6%89%93%E7%A0%B4%E8%BF%90%E8%A1%8C%E8%87%B3%E5%AE%8C%E6%88%90">打破"运行至完成"定律</a></li>
+<li><a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/async%20%26%20performance/apB.md#%E9%80%9A%E4%BF%A1%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%84%E7%90%86csp">CSP模式</a></li>
+<li><a href="https://github.com/ReactiveX/rxjs">响应式编程</a></li>
+</ul>
+<h3 id="_4">引用<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
+<ul>
+<li><code>You Don't Know JS</code>系列书籍</li>
+</ul>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" data-md-state="hidden" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path></svg>
+            Back to top
+          </a>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="上一页: nats客户端" class="md-footer__link md-footer__link--prev" href="../../golang/nats%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                上一页
+              </span>
+              nats客户端
+            </div>
+</div>
+</a>
+<a aria-label="下一页: 订单系统" class="md-footer__link md-footer__link--next" href="../../%E8%AE%A2%E5%8D%95%E7%B3%BB%E7%BB%9F/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                下一页
+              </span>
+              订单系统
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+            Material for MkDocs
+          </a>
+</div>
+<div class="md-footer-social">
+<a class="md-footer-social__link" href="https://github.com/lixw1994" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+<script src="../../../assets/javascripts/bundle.f89c2efe.min.js"></script>
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</body>
+</html>
