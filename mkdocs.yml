@@ -1,0 +1,130 @@
+# Project information
+site_name: Blog
+site_url: https://lixw1994.github.io/blog
+site_author: lixianwei
+site_description: >-
+  随想记录
+# Repository
+repo_name: blog
+repo_url: https://github.com/lixw1994/blog
+edit_uri: ""
+
+# Configuration
+theme:
+  name: 'material'
+
+  # Static files
+  static_templates:
+    - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  # Default values, taken from mkdocs_theme.yml
+  language: zh
+  features:
+    - content.code.annotate
+    # - content.tabs.link
+    # - header.autohide
+    # - navigation.expand
+    - navigation.indexes
+    # - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    # - toc.integrate
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: red
+      accent: red
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: assets/favicon.png
+  icon:
+    logo: material/library
+
+# Plugins
+plugins:
+  - search
+  - mermaid2
+  - redirects:
+      redirect_maps:
+  # - minify:
+  #     minify_html: true
+
+# Customization
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/lixw1994
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - abbr
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra_javascript:
+    - https://unpkg.com/mermaid/dist/mermaid.min.js
+
+# Page tree
+nav:
+  - Home: index.md
+  - 知识库:
+    - golang:
+      - gitlab私有仓库依赖: 知识库/golang/gitlab私有仓库依赖.md
+      - nats客户端: 知识库/golang/nats客户端.md
+    - 定期分享:
+      - 20210618分享-js异步编程: 知识库/定期分享/20210618-js异步编程.md
+    - 订单系统: 知识库/订单系统.md
+    - kafka简介: 知识库/kafka简介.md
