@@ -1,25 +1,24 @@
+```markdown
 # [My Blog](https://lixw1994.github.io/blog/)
 
-## 工作流
+## Workflow
 
-### 更新文档
+### Update Documents
 
-1. 更新文档
-2. 提交并推送master分支
+1. Update documents
+2. Commit and push to the master branch
 
-### 创建文档
+### Create Documents
 
-1. 在`docs/`下创建文档
-2. 在`mkdocs.yml`配置文件的`nav`处构建 Page Tree
-3. 提交并推送master分支
+1. Create documents under `docs/`
+2. Build Page Tree in the `nav` section of the `mkdocs.yml` configuration file
+3. Commit and push to the master branch
 
-## 注意事项
+## Notes
 
-- 列表缩进需要4个空格
+-  List indentation requires 4 spaces
 
-## 环境搭建
-- `pyenv local 3.8.6`
-- `pyenv exec python -m venv venv`
-- `source venv/bin/activate`
-- `pip install -r requirements.txt`
-- `mkdocs new .`
+## Common Operations
+-  Initialize document: `mkdocs new .`
+-  Local start: `mkdocs serve`
+```

@@ -1,11 +1,11 @@
 # Project information
-site_name: Blog
+site_name: Aimless
 site_url: https://lixw1994.github.io/blog
-site_author: lixianwei
+site_author: lixw1994
 site_description: >-
-  随想记录
+  Viewing the sky from a well
 # Repository
-repo_name: blog
+repo_name: Github
 repo_url: https://github.com/lixw1994/blog
 edit_uri: ""
 
@@ -16,10 +16,6 @@ theme:
   # Static files
   static_templates:
     - 404.html
-
-  # Don't include MkDocs' JavaScript
-  include_search_page: false
-  search_index_only: true
 
   # Default values, taken from mkdocs_theme.yml
   language: zh
@@ -62,7 +58,7 @@ theme:
 # Plugins
 plugins:
   - search
-  - mermaid2
+  - blog
   - redirects:
       redirect_maps:
   # - minify:
@@ -81,7 +77,6 @@ markdown_extensions:
   - attr_list
   - def_list
   - footnotes
-  - meta
   - md_in_html
   - toc:
       permalink: true
@@ -92,11 +87,16 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.highlight
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
   - pymdownx.inlinehilite
+  - pymdownx.snippets
   - pymdownx.keys
+  - pymdownx.critic
   - pymdownx.magiclink:
       repo_url_shorthand: true
       user: squidfunk
@@ -107,24 +107,14 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:mermaid2.fence_mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+  - tables
 
 extra_javascript:
     - https://unpkg.com/mermaid/dist/mermaid.min.js
-
-# Page tree
-nav:
-  - Home: index.md
-  - 知识库:
-    - golang:
-      - gitlab私有仓库依赖: 知识库/golang/gitlab私有仓库依赖.md
-      - nats客户端: 知识库/golang/nats客户端.md
-    - 定期分享:
-      - 20210618分享-js异步编程: 知识库/定期分享/20210618-js异步编程.md
-    - 订单系统: 知识库/订单系统.md
-    - kafka简介: 知识库/kafka简介.md
+  
