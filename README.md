@@ -1,4 +1,3 @@
-```markdown
 # [My Blog](https://lixw1994.github.io/blog/)
 
 ## Workflow
@@ -21,4 +20,3 @@
 ## Common Operations
 -  Initialize document: `mkdocs new .`
 -  Local start: `mkdocs serve`
-```
