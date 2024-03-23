@@ -1,6 +1,6 @@
 # Project information
 site_name: Aimless
-site_url: https://lixw1994.github.io/blog
+site_url: https://blog.flybullet.net/
 site_author: lixw1994
 site_description: >-
   Viewing the sky from a well
@@ -12,6 +12,7 @@ edit_uri: ""
 # Configuration
 theme:
   name: 'material'
+  custom_dir: overrides
 
   # Static files
   static_templates:
@@ -59,6 +60,14 @@ theme:
 plugins:
   - search
   - blog
+  # - rss:
+  #     match_path: blog/posts/.* # (1)!
+  #     date_from_meta:
+  #       as_creation: date
+  #     categories:
+  #       - categories
+  #       - tags # (2)!
+  #     comments_path: "#__comments"
   - redirects:
       redirect_maps:
   # - minify:
