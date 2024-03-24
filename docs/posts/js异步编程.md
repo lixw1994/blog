@@ -1,9 +1,28 @@
-## 主题: js异步编程
+---
+draft: false
+comments: true
+slug: javascript-async-programming
+date: 2021-06-18
+authors: [lixw1994]
+title: Javascript 异步编程
+description: >
+  Javascript 异步编程
+categories:
+  - General
+  - Tech
+tags:
+  - Javascript
+  - 异步编程
+---
 
-### 事件轮询（Event Loop）
-- 一个令人震惊的事实：JavaScript本身从来没有任何内建的异步概念，JavaScript本身是单线程的。
+# Javascript 异步编程
+一个令人震惊的事实：JavaScript本身从来没有任何内建的异步概念。
+<!-- more -->
+
+## 事件轮询（Event Loop）
+
+- JavaScript本身是单线程的。
 - JS引擎本身除了在某个在被要求的时刻执行你程序的一个单独的代码块外，没有做过任何其他的事情。
-	
 	- JS引擎宿主环境：浏览器、Node、cocos-js等
 - 一段假想的事件轮询的代码
 	```
@@ -31,7 +50,7 @@
 - 我们的程序通常被打断成许多小的代码块儿，它们一个接一个地在事件轮询队列中执行。
 - 可以这么理解：异步是关于 现在 与 稍后 之间的间隙
 
-### 异步与callback
+## 异步与callback
 - 最常见的 代码块儿 单位是`function`，所以最简单的异步方式就是回调函数。
 - 例如一个异步的Ajax请求
 ```
@@ -86,7 +105,7 @@ asyncAdd(1, 1, function(c) {
 // callback一定是异步吗
 ```
 
-### 异步与并行
+## 异步与并行
 以下代码，如果可以并行执行，a可能的值是什么
 实际js运行时，a可能的值是什么
 ```
@@ -119,7 +138,7 @@ setTimeout(() => {
 - js并不具备并行的能力
 - 一旦某个代码块开始执行，必然"运行至完成"
 
-### 回掉地狱(callback hell)
+## 回掉地狱(callback hell)
 考虑下面的代码，分析执行顺序：
 ```
 listen( "click", function handler(evt){
@@ -183,7 +202,7 @@ doD()
 	ajax( "http://some.url.1", response );
 	```
 
-### Promise风暴
+## Promise风暴
 - Promise就是一个稍后的值
 	- 一个
 	- 稍后
@@ -197,7 +216,7 @@ doD()
 - Promise + Generator => async + await；是最终的解决方案吗？
 
 
-### Promise不是银弹
+## Promise不是银弹
 - 本质上还是回调函数
 - 跟普通的js函数一样，不能打断和撤销
 	- 设计幂等的代码块儿处理类似的问题
@@ -219,8 +238,8 @@ listener.on( "foobar", function(data){
 } );
 ```
 
-### 额外甜点
-#### 同步和异步 ｜ 并发和并行
+## 额外甜点
+### 同步和异步 ｜ 并发和并行
 - 同步和异步是对任务执行过程的描述
 	- 异步并不意味着程序性能更高
 - 并发是对多个任务的计划(planning)
@@ -231,10 +250,10 @@ listener.on( "foobar", function(data){
 		- Concurrency makes parallelism (and scaling and everything else) easy.
 - 并行是多个任务同时执行(doing)
 	- [Concurrency is not parallelism](https://talks.golang.org/2012/waza.slide#8)
-#### generator
+### generator
 - [打破"运行至完成"定律](https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/async%20%26%20performance/ch4.md#%E6%89%93%E7%A0%B4%E8%BF%90%E8%A1%8C%E8%87%B3%E5%AE%8C%E6%88%90)
 - [CSP模式](https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/async%20%26%20performance/apB.md#%E9%80%9A%E4%BF%A1%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%84%E7%90%86csp)
 - [响应式编程](https://github.com/ReactiveX/rxjs)
 
-### 引用
-- `You Don't Know JS`系列书籍
+## 引用
+- `You Don't Know JS` 系列书籍
